@@ -1,8 +1,5 @@
 package api
 
-// 恕我直言，小学生编程班的学生都比你们会写前端
-// 工地上可能随便找个打扫卫生的老奶奶都知道写omitempty
-
 // TtRoomData is TT_ROOM_DATA
 type TtRoomData struct {
 	Type      string `json:"type"`
@@ -24,7 +21,7 @@ type TtRoomData struct {
 	GameHostName string `json:"gameHostName"`
 	// ScreenType   int    `json:"screenType"`
 	StartTime  interface{} `json:"startTime"`
-	TotalCount interface{} `json:"totalCount"`
+	TotalCount interface{} `json:"totalCount"` // 人气值
 	// CameraOpen int   `json:"cameraOpen"`
 	// LiveCompatibleFlag
 	// BussType int `json:"bussType"`
@@ -44,73 +41,25 @@ type TtRoomData struct {
 }
 
 // TtProfileInfo is TT_PROFILE_INFO
-type TtProfileInfo struct{}
+type TtProfileInfo struct {
+	// Sex         int    `json:"sex"`
+	// Lp          int64  `json:"lp"`
+	// AID         int64  `json:"aid"`
+	// YYID        int64  `json:"yyid"`
+	Nick        string `json:"nick"`
+	Avatar      string `json:"avatar"`
+	Fans        int    `json:"fans"`
+	Host        string `json:"host"`
+	ProfileRoom string `json:"profileRoom"`
+}
 
 // Stream is stream
 type Stream struct {
 	Status int    `json:"status"`
 	Msg    string `json:"msg"`
 	Data   []struct {
-		GameLiveInfo struct {
-			UID                string `json:"uid"`
-			Sex                string `json:"sex"`
-			GameFullName       string `json:"gameFullName"`
-			GameHostName       string `json:"gameHostName"`
-			StartTime          string `json:"startTime"`
-			ActivityID         string `json:"activityId"`
-			Level              string `json:"level"`
-			TotalCount         string `json:"totalCount"`
-			RoomName           string `json:"roomName"`
-			IsSecret           string `json:"isSecret"`
-			CameraOpen         string `json:"cameraOpen"`
-			LiveChannel        string `json:"liveChannel"`
-			BussType           string `json:"bussType"`
-			YYID               string `json:"yyid"`
-			ScreenShot         string `json:"screenshot"`
-			ShortChannel       string `json:"shorChannel"`
-			Avatar180          string `json:"avatar180"`
-			GID                string `json:"gid"`
-			Channel            string `json:"channel"`
-			Introduction       string `json:"introduction"`
-			ProfileHomeHost    string `json:"profileHomeHost"`
-			LiveSourceType     string `json:"liveSourceType"`
-			ScreenType         string `json:"screenType"`
-			BitRate            string `json:"bitRate"`
-			GameType           string `json:"gameType"`
-			AttendeeCount      string `json:"attendeeCount"`
-			MultiStreamFlag    string `json:"multiStreamFlag"`
-			CodecType          string `json:"codecType"`
-			LiveCompatibleFlag string `json:"liveCompatibleFlag"`
-			ProfileRoom        string `json:"profileRoom"`
-			LiveID             string `json:"liveId"`
-			RecommendTagName   string `json:"recommendTagName"`
-			ContentIntro       string `json:"contentIntro"`
-		} `json:"gameLiveInfo"`
-		GameStreamInfoList []struct {
-			SCdnType            string `json:"sCdnType"`
-			IIsMaster           int    `json:"iIsMaster"`
-			LChannelID          int64  `json:"lchannelId"`
-			LSubChannelID       int64  `json:"lSubChannelId"`
-			LPresenterUID       int64  `json:"lPresenterUid"`
-			SStreamName         string `json:"sStreamName"`
-			SFlvURL             string `json:"sFlvUrl"`
-			SFlvURLSuffix       string `json:"sFlvUrlSuffix"`
-			SFlvAntiCode        string `json:"sFlvAntiCode"`
-			SHlsURL             string `json:"sHlsUrl"`
-			SHlsURLSuffix       string `json:"sHlsUrlSuffix"`
-			SHlsAntiCode        string `json:"sHlsAntiCode"`
-			ILineIndex          int    `json:"iLineIndex"`
-			IIsMultiStream      int    `json:"iIsMultiStream"`
-			IPCPriorityRate     int    `json:"iPCPriorityRate"`
-			IWebPriorityRate    int    `json:"iWebPriorityRate"`
-			IMobilePriorityRate int    `json:"iMobilePriorityRate"`
-			// VFlvIPList
-			IIsP2PSupport   int    `json:"iIsP2PSupport"`
-			SP2pURL         string `json:"sP2pUrl"`
-			Sp2pURLSuffix   string `json:"sP2pUrlSuffix"`
-			LFreeFlag       int    `json:"lFreeFlag"`
-			NewCFlvAntiCode string `json:"newCFlvAntiCode"`
-		} `json:"gameStreamInfoList"`
+		GameLiveInfo       GameLiveInfo     `json:"gameLiveInfo"`
+		GameStreamInfoList []GameStreamInfo `json:"gameStreamInfoList"`
 	} `json:"data"`
 	Count            int `json:"count"`
 	VMultiStreamInfo []struct {
@@ -118,4 +67,68 @@ type Stream struct {
 		IBitRate     int    `json:"iBitRate"`
 	} `json:"vMultiStreamInfo"`
 	IWebDefaultBitRate int `json:"iWebDefaultBitRate"`
+}
+
+// GameLiveInfo :)
+type GameLiveInfo struct {
+	UID                string `json:"uid"`
+	Sex                string `json:"sex"`
+	GameFullName       string `json:"gameFullName"`
+	GameHostName       string `json:"gameHostName"`
+	StartTime          string `json:"startTime"`
+	ActivityID         string `json:"activityId"`
+	Level              string `json:"level"`
+	TotalCount         string `json:"totalCount"`
+	RoomName           string `json:"roomName"`
+	IsSecret           string `json:"isSecret"`
+	CameraOpen         string `json:"cameraOpen"`
+	LiveChannel        string `json:"liveChannel"`
+	BussType           string `json:"bussType"`
+	YYID               string `json:"yyid"`
+	ScreenShot         string `json:"screenshot"`
+	ShortChannel       string `json:"shorChannel"`
+	Avatar180          string `json:"avatar180"`
+	GID                string `json:"gid"`
+	Channel            string `json:"channel"`
+	Introduction       string `json:"introduction"`
+	ProfileHomeHost    string `json:"profileHomeHost"`
+	LiveSourceType     string `json:"liveSourceType"`
+	ScreenType         string `json:"screenType"`
+	BitRate            string `json:"bitRate"`
+	GameType           string `json:"gameType"`
+	AttendeeCount      string `json:"attendeeCount"`
+	MultiStreamFlag    string `json:"multiStreamFlag"`
+	CodecType          string `json:"codecType"`
+	LiveCompatibleFlag string `json:"liveCompatibleFlag"`
+	ProfileRoom        string `json:"profileRoom"`
+	LiveID             string `json:"liveId"`
+	RecommendTagName   string `json:"recommendTagName"`
+	ContentIntro       string `json:"contentIntro"`
+}
+
+// GameStreamInfo :)
+type GameStreamInfo struct {
+	SCdnType            string `json:"sCdnType"`
+	IIsMaster           int    `json:"iIsMaster"`
+	LChannelID          int64  `json:"lchannelId"`
+	LSubChannelID       int64  `json:"lSubChannelId"`
+	LPresenterUID       int64  `json:"lPresenterUid"`
+	SStreamName         string `json:"sStreamName"`
+	SFlvURL             string `json:"sFlvUrl"`
+	SFlvURLSuffix       string `json:"sFlvUrlSuffix"`
+	SFlvAntiCode        string `json:"sFlvAntiCode"`
+	SHlsURL             string `json:"sHlsUrl"`
+	SHlsURLSuffix       string `json:"sHlsUrlSuffix"`
+	SHlsAntiCode        string `json:"sHlsAntiCode"`
+	ILineIndex          int    `json:"iLineIndex"`
+	IIsMultiStream      int    `json:"iIsMultiStream"`
+	IPCPriorityRate     int    `json:"iPCPriorityRate"`
+	IWebPriorityRate    int    `json:"iWebPriorityRate"`
+	IMobilePriorityRate int    `json:"iMobilePriorityRate"`
+	// VFlvIPList
+	IIsP2PSupport   int    `json:"iIsP2PSupport"`
+	SP2pURL         string `json:"sP2pUrl"`
+	Sp2pURLSuffix   string `json:"sP2pUrlSuffix"`
+	LFreeFlag       int    `json:"lFreeFlag"`
+	NewCFlvAntiCode string `json:"newCFlvAntiCode"`
 }
