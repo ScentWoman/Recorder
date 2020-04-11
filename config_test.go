@@ -13,7 +13,9 @@ var (
   split: 3600
   save: /home/Record/save
   filename_format: "${Date:2006-01-02-15-04-05}_${Title}_${Plt}"
-  on_finish: "script dir\\ with\\ space ${1} ${Date:01-02}"`
+  on_start: "script_at_start ${1} ${Date:01-02}"
+  on_finish: "script_at_finish filename\\ with\\ space ${1} ${Date:01-02}"
+`
 )
 
 func TestParse(t *testing.T) {
@@ -25,6 +27,7 @@ func TestParse(t *testing.T) {
 	for k, v := range cm {
 		fmt.Println(k)
 		fmt.Printf("%#v\n", v)
+		v.OnFinish = strings.ReplaceAll(v.OnFinish, "\\ ", "Ø")
 		for _, v := range strings.Split(v.OnFinish, " ") {
 			fmt.Println("--", v)
 		}
