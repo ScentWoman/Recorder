@@ -90,6 +90,7 @@ func (h *Huya) GetStreams(opt interface{}) (s []live.Stream, e error) {
 		return
 	}
 	streamData := streamRegexp.Find(body)
+	// dangerous
 	streamData = shave(streamData[:len(streamData)-3])
 	var stream api.Stream
 	if e = json.Unmarshal(streamData, &stream); e != nil {
@@ -107,7 +108,10 @@ func (h *Huya) GetStreams(opt interface{}) (s []live.Stream, e error) {
 		_, _ = sb.WriteString("?t=100&sv=1910112100&")
 		_, _ = sb.WriteString(html.UnescapeString(v.SFlvAntiCode))
 		surl := sb.String()
-		req, _ := http.NewRequest("GET", surl, nil)
+		req, e := http.NewRequest("GET", surl, nil)
+		if e != nil {
+			return nil, e
+		}
 		s[k] = live.Stream{
 			Req:         req,
 			URL:         surl,
